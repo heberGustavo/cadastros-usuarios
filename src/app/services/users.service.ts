@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+
+import { UsersListResponse } from '../types/users-list-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
 
-  private readonly usersLists: any = [
+  private readonly usersLists: UsersListResponse = [
     {
       name: 'Usuário 1',
       username: 'usuario1',
@@ -48,7 +50,7 @@ export class UsersService {
     },
   ]
 
-  getUsers(): Observable<any> {
+  getUsers(): Observable<UsersListResponse> {
     return new Observable((observer) => {
       setTimeout(() => {
         observer.next(this.usersLists);
