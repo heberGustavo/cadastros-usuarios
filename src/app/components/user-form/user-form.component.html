@@ -49,6 +49,26 @@
                     <mat-error *ngIf="emailControl.hasError('invalidEmail') && !emailControl.hasError('required')">Este <strong>E-mail</strong> já está sendo utilizado.</mat-error>
                 </mat-form-field>
             </div>
+            <div class="user-form__row">
+                <mat-form-field>
+                    <mat-label>Senha:</mat-label>
+                    <input 
+                        type="password"
+                        name="senha"
+                        matInput
+                        #passwordControl="ngModel"
+                        [(ngModel)]="userSelected.password"
+                        appPasswordStrengthValidator
+                        required
+                    />
+                    <mat-error *ngIf="passwordControl.hasError('required')">
+                        A <strong>Senha</strong> é obrigatória
+                    </mat-error>
+                    <mat-error *ngIf="passwordControl.hasError('invalidPasswordStrengthValidator') && !passwordControl.hasError('required')">
+                        Digite uma senha <strong>mais forte</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
         </form>
     </mat-card-content>
 </mat-card>

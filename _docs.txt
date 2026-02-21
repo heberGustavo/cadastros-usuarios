@@ -1,3 +1,7 @@
 ### ANGULAR MATERIAL
 ng add @angular/material
 
+### VALIDADOR DE SENHA
+npm i zxcvbn
+npm i --save-dev @types/zxcvbn
+
