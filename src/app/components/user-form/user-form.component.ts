@@ -11,12 +11,15 @@ import { getPasswordStrengthValue } from 'src/app/utils/get-password-strength-va
 })
 export class UserFormComponent implements OnInit, OnChanges {
   passwordStrengthValue: number = 0;
+  minDate: Date | null = null;
+  maxDate: Date | null = null;
 
   @Input() genresList: GenresListResponse = [];
   @Input() statesList: BrasilianStateListResponse = [];
   @Input() userSelected: IUser = {} as IUser;
 
   ngOnInit() { //Executa apenas 1x quando o component é carregado
+    this.setMinAndMaxDate();
   }
 
   ngOnChanges(changes: SimpleChanges) { //Executa quando tem mudança nos valores
@@ -32,5 +35,10 @@ export class UserFormComponent implements OnInit, OnChanges {
 
   private controlProgressBarPassword() {
     this.passwordStrengthValue = getPasswordStrengthValue(this.userSelected.password);
+  }
+
+  private setMinAndMaxDate(){
+    this.minDate = new Date(new Date().getFullYear() - 100, 0, 1);
+    this.maxDate = new Date();
   }
 }
