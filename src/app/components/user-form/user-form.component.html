@@ -2,9 +2,16 @@
     <mat-card-content>
         <form class="user-form">
             <div class="user-form__row">
-                <div class="user-form__item user-form__item-100">
-                    <input style="width: 100%;" type="text">
-                </div>
+                <mat-form-field class="user-form__item user-form__item-100">
+                    <mat-label>Nome:</mat-label>
+                    <input 
+                        type="text"
+                        name="nome" 
+                        matInput 
+                        [(ngModel)]="userSelected.name"
+                        required/>
+                    <mat-error>O <strong>Nome</strong> é obrigatório</mat-error>
+                </mat-form-field>
             </div>
             <div class="user-form__row">
                 <div class="user-form__item user-form__item-50">
