@@ -5,14 +5,18 @@ import { BrasilianStatesService } from './services/brasilian-states.service';
 import { UsersListResponse } from './types/users-list-response';
 import { GenresListResponse } from './types/genres-list-response';
 import { BrasilianStateListResponse } from './types/brasilian-state-list-response';
+import { IUser } from './interfaces/user/user.interface';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
-  usersList: UsersListResponse = [];
+export class AppComponent implements OnInit {
+  userSelected: IUser = {} as IUser; //Guarda a copia do usuário
+  userSelectedIndex: number | undefined;
+
+  usersList: UsersListResponse = []; //Guarda lista original dos usuários
   genresList: GenresListResponse = [];
   brasilianStatesList: BrasilianStateListResponse = [];
 
@@ -20,7 +24,7 @@ export class AppComponent implements OnInit{
     private readonly _usersService: UsersService,
     private readonly _genresService: GenresService,
     private readonly _brasilianStatesService: BrasilianStatesService,
-  ){}
+  ) { }
 
   ngOnInit(): void {
     this.getUsers();
@@ -28,19 +32,28 @@ export class AppComponent implements OnInit{
     this.getStates();
   }
 
-  private getUsers(){
+  onUserSelected(userIndex: number) {
+    const userFound = this.usersList[userIndex];
+
+    if(userFound){
+      this.userSelectedIndex = userIndex;
+      this.userSelected = structuredClone(userFound); //clonando o objeto
+    }
+  }
+
+  private getUsers() {
     this._usersService.getUsers().subscribe((usersListResponse) => {
       this.usersList = usersListResponse;
     });
   }
 
-  private getGenres(){
+  private getGenres() {
     return this._genresService.getGenres().subscribe((genresListResponse) => {
       this.genresList = genresListResponse;
     })
   }
 
-  private getStates(){
+  private getStates() {
     return this._brasilianStatesService.getStates().subscribe((brasilianStatesListResponse) => {
       this.brasilianStatesList = brasilianStatesListResponse;
     })
