@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { IUser } from 'src/app/interfaces/user/user.interface';
 import { BrasilianStateListResponse } from 'src/app/types/brasilian-state-list-response';
 import { GenresListResponse } from 'src/app/types/genres-list-response';
+import { getPasswordStrengthValue } from 'src/app/utils/get-password-strength-value';
 
 @Component({
   selector: 'app-user-form',
@@ -9,6 +10,8 @@ import { GenresListResponse } from 'src/app/types/genres-list-response';
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit, OnChanges {
+  passwordStrengthValue: number = 0;
+
   @Input() genresList: GenresListResponse = [];
   @Input() statesList: BrasilianStateListResponse = [];
   @Input() userSelected: IUser = {} as IUser;
@@ -17,5 +20,17 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) { //Executa quando tem mudança nos valores
+    const USER_CHANGED = changes['userSelected'];
+
+    if (USER_CHANGED)
+      this.controlProgressBarPassword();
+  }
+
+  onPasswordChange(password: string) {
+    this.passwordStrengthValue = getPasswordStrengthValue(password);
+  }
+
+  private controlProgressBarPassword() {
+    this.passwordStrengthValue = getPasswordStrengthValue(this.userSelected.password);
   }
 }

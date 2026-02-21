@@ -19,3 +19,21 @@
         width: 100%;
     }
 }
+
+.weak-password {
+    ::ng-deep &.mat-mdc-progress-bar.mat-primary {
+        --mdc-linear-progress-active-indicator-color: red !important;
+    }
+}
+
+.medium-password {
+    ::ng-deep &.mat-mdc-progress-bar.mat-primary {
+        --mdc-linear-progress-active-indicator-color: orange !important;
+    }
+}
+
+.strong-password {
+    ::ng-deep &.mat-mdc-progress-bar.mat-primary {
+        --mdc-linear-progress-active-indicator-color: green !important;
+    }
+}
