@@ -18,6 +18,8 @@ export class UserFormComponent implements OnInit, OnChanges {
   maxDate: Date | null = null;
   dateValue: Date | null = null;
 
+  displayedColums: string[] = ['title', 'band', 'genre', 'favorite'];
+
   @Input() genresList: GenresListResponse = [];
   @Input() statesList: BrasilianStateListResponse = [];
   @Input() userSelected: IUser = {} as IUser;
@@ -40,7 +42,7 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   onDateChange(event: MatDatepickerInputEvent<any, any>) {
-    if(!event.value) return;
+    if (!event.value) return;
 
     this.userSelected.birthDate = convertDateObjToPtBrDate(event.value);
   }
