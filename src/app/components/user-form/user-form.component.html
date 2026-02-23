@@ -105,7 +105,8 @@
                         [matDatepicker]="picker"
                         [min]="minDate"
                         [max]="maxDate"
-                        ngModel
+                        [ngModel]="dateValue"
+                        (dateChange)="onDateChange($event)"
                         readonly
                         required
                     />

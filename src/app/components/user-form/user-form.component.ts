@@ -1,7 +1,10 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { IUser } from 'src/app/interfaces/user/user.interface';
 import { BrasilianStateListResponse } from 'src/app/types/brasilian-state-list-response';
 import { GenresListResponse } from 'src/app/types/genres-list-response';
+import { convertDateObjToPtBrDate } from 'src/app/utils/convert-date-obj-to-pt-br-date';
+import { convertPtBrDateToDateObj } from 'src/app/utils/convert-pt-br-date-to-date-obj';
 import { getPasswordStrengthValue } from 'src/app/utils/get-password-strength-value';
 
 @Component({
@@ -13,6 +16,7 @@ export class UserFormComponent implements OnInit, OnChanges {
   passwordStrengthValue: number = 0;
   minDate: Date | null = null;
   maxDate: Date | null = null;
+  dateValue: Date | null = null;
 
   @Input() genresList: GenresListResponse = [];
   @Input() statesList: BrasilianStateListResponse = [];
@@ -25,20 +29,32 @@ export class UserFormComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) { //Executa quando tem mudança nos valores
     const USER_CHANGED = changes['userSelected'];
 
-    if (USER_CHANGED)
+    if (USER_CHANGED) {
       this.controlProgressBarPassword();
+      this.setBirthDateToDatepicker(this.userSelected.birthDate);
+    }
   }
 
   onPasswordChange(password: string) {
     this.passwordStrengthValue = getPasswordStrengthValue(password);
   }
 
+  onDateChange(event: MatDatepickerInputEvent<any, any>) {
+    if(!event.value) return;
+
+    this.userSelected.birthDate = convertDateObjToPtBrDate(event.value);
+  }
+
   private controlProgressBarPassword() {
     this.passwordStrengthValue = getPasswordStrengthValue(this.userSelected.password);
   }
 
-  private setMinAndMaxDate(){
+  private setMinAndMaxDate() {
     this.minDate = new Date(new Date().getFullYear() - 100, 0, 1);
     this.maxDate = new Date();
+  }
+
+  private setBirthDateToDatepicker(birthDate: string) {
+    this.dateValue = convertPtBrDateToDateObj(birthDate);
   }
 }
