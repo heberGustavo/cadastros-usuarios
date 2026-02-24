@@ -43,8 +43,8 @@
                 <div class="infos__item"><strong>Música {{i + 1}} - Gênero:</strong> {{ data.updatedUser.musics[i].genre | genreDescription }}</div>
             </div>
             <div class="infos__row">
-                <div class="infos__item"><strong>Música {{i + 1}} - Favorito:</strong> {{ music.isFavorite }}</div>
-                <div class="infos__item"><strong>Música {{i + 1}} - Favorito:</strong> {{ data.updatedUser.musics[i].isFavorite }}</div>
+                <div class="infos__item"><strong>Música {{i + 1}} - Favorito:</strong> {{ music.isFavorite | isFavoriteDescription}}</div>
+                <div class="infos__item"><strong>Música {{i + 1}} - Favorito:</strong> {{ data.updatedUser.musics[i].isFavorite | isFavoriteDescription  }}</div>
             </div>
         </ng-container>
     </div>
