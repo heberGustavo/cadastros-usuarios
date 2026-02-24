@@ -6,6 +6,8 @@ import { UsersListResponse } from './types/users-list-response';
 import { GenresListResponse } from './types/genres-list-response';
 import { BrasilianStateListResponse } from './types/brasilian-state-list-response';
 import { IUser } from './interfaces/user/user.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { UserBeforeAndAfterDialogComponent } from './components/user-before-and-after-dialog/user-before-and-after-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +26,7 @@ export class AppComponent implements OnInit {
     private readonly _usersService: UsersService,
     private readonly _genresService: GenresService,
     private readonly _brasilianStatesService: BrasilianStatesService,
+    private readonly _matDialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -35,10 +38,28 @@ export class AppComponent implements OnInit {
   onUserSelected(userIndex: number) {
     const userFound = this.usersList[userIndex];
 
-    if(userFound){
+    if (userFound) {
       this.userSelectedIndex = userIndex;
       this.userSelected = structuredClone(userFound); //clonando o objeto
     }
+  }
+
+  onFormSubmit(): void {
+    if(this.userSelectedIndex === undefined) return;
+
+    const originalUser = this.usersList[this.userSelectedIndex];
+
+    this.openBeforeAndAfterDialog(originalUser, this.userSelected);
+  }
+  
+  private openBeforeAndAfterDialog(originalUser: IUser, updatedUser: IUser) {
+    this._matDialog.open(UserBeforeAndAfterDialogComponent, {
+      minWidth: '70%',
+      data: {
+        originalUser,
+        updatedUser
+      }
+    });
   }
 
   private getUsers() {

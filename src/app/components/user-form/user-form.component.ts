@@ -83,6 +83,7 @@ export class UserFormComponent implements OnInit, OnChanges {
       return;
     }
 
+    console.log('FORM VÁLIDO!!!');
     this.onFormSubmitEmmit.emit();
   }
 
@@ -91,7 +92,7 @@ export class UserFormComponent implements OnInit, OnChanges {
       if(form.controls[control].invalid){
         const invalidControl: HTMLElement = this._el.nativeElement.querySelector(`[name=${control}]`);
         invalidControl.focus();
-        
+
         break;
       }
     }
