@@ -17,6 +17,7 @@ import { UserBeforeAndAfterDialogComponent } from './components/user-before-and-
 export class AppComponent implements OnInit {
   userSelected: IUser = {} as IUser; //Guarda a copia do usuário
   userSelectedIndex: number | undefined;
+  showLoader: boolean = true;
 
   usersList: UsersListResponse = []; //Guarda lista original dos usuários
   genresList: GenresListResponse = [];
@@ -33,6 +34,7 @@ export class AppComponent implements OnInit {
     this.getUsers();
     this.getGenres();
     this.getStates();
+    this.loader();
   }
 
   onUserSelected(userIndex: number) {
@@ -45,21 +47,36 @@ export class AppComponent implements OnInit {
   }
 
   onFormSubmit(): void {
-    if(this.userSelectedIndex === undefined) return;
+    if (this.userSelectedIndex === undefined) return;
 
     const originalUser = this.usersList[this.userSelectedIndex];
 
-    this.openBeforeAndAfterDialog(originalUser, this.userSelected);
+    this.openBeforeAndAfterDialog(originalUser, this.userSelected, this.userSelectedIndex);
   }
-  
-  private openBeforeAndAfterDialog(originalUser: IUser, updatedUser: IUser) {
-    this._matDialog.open(UserBeforeAndAfterDialogComponent, {
+
+  private openBeforeAndAfterDialog(originalUser: IUser, updatedUser: IUser, userSelectedIndex: number) {
+    const dialogRef = this._matDialog.open(UserBeforeAndAfterDialogComponent, {
       minWidth: '70%',
       data: {
         originalUser,
         updatedUser
       }
     });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      //console.log('result', result);
+      if (result) {
+        this.confirmUserUpdate(updatedUser, userSelectedIndex);
+      }
+    })
+  }
+
+  private confirmUserUpdate(updatedUser: IUser, userSelectedIndex: number) {
+    this.usersList[userSelectedIndex] = structuredClone(updatedUser);
+
+    console.group('Alteração finalizada - Lista de usuários atualizada!')
+    console.log('Lista de usuários atual', this.usersList);
+    console.groupEnd();
   }
 
   private getUsers() {
@@ -78,5 +95,11 @@ export class AppComponent implements OnInit {
     return this._brasilianStatesService.getStates().subscribe((brasilianStatesListResponse) => {
       this.brasilianStatesList = brasilianStatesListResponse;
     })
+  }
+
+  private loader() {
+    setTimeout(() => {
+      this.showLoader = false;
+    }, 3000);
   }
 }

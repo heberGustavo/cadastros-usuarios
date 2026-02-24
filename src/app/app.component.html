@@ -6,8 +6,13 @@
 </div>
 
 <app-user-form
+    *ngIf="userSelectedIndex !== undefined"
     [genresList]="genresList"
     [statesList]="brasilianStatesList"
     [userSelected]="userSelected"
     (onFormSubmit)="onFormSubmit()"
 ></app-user-form>
+
+<div *ngIf="showLoader">
+    Carregando dados...
+</div>

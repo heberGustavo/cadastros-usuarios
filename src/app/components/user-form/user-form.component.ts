@@ -83,7 +83,6 @@ export class UserFormComponent implements OnInit, OnChanges {
       return;
     }
 
-    console.log('FORM VÁLIDO!!!');
     this.onFormSubmitEmmit.emit();
   }
 
