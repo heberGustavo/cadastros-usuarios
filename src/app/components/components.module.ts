@@ -10,10 +10,10 @@ import { UserBeforeAndAfterDialogComponent } from './user-before-and-after-dialo
 
 @NgModule({
     declarations: [
-    UsersCardListComponent,
-    UserFormComponent,
-    UserBeforeAndAfterDialogComponent
-  ],
+        UsersCardListComponent,
+        UserFormComponent,
+        UserBeforeAndAfterDialogComponent
+    ],
     imports: [
         FormsModule,
         BrowserModule,

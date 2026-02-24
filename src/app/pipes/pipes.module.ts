@@ -1,8 +1,13 @@
 import { NgModule } from "@angular/core";
+import { GenreDescriptionPipe } from './genre-description.pipe';
 
 @NgModule({
-    declarations: [],
-    exports: [],
+  declarations: [
+    GenreDescriptionPipe,
+  ],
+  exports: [
+    GenreDescriptionPipe,
+  ],
 })
 export class PipesModule {
 

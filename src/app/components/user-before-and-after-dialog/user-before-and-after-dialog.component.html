@@ -39,8 +39,8 @@
                 <div class="infos__item"><strong>Música {{i + 1}} - Banda:</strong> {{ data.updatedUser.musics[i].band }}</div>
             </div>
             <div class="infos__row">
-                <div class="infos__item"><strong>Música {{i + 1}} - Gênero:</strong> {{ music.genre }}</div>
-                <div class="infos__item"><strong>Música {{i + 1}} - Gênero:</strong> {{ data.updatedUser.musics[i].genre }}</div>
+                <div class="infos__item"><strong>Música {{i + 1}} - Gênero:</strong> {{ music.genre | genreDescription }}</div>
+                <div class="infos__item"><strong>Música {{i + 1}} - Gênero:</strong> {{ data.updatedUser.musics[i].genre | genreDescription }}</div>
             </div>
             <div class="infos__row">
                 <div class="infos__item"><strong>Música {{i + 1}} - Favorito:</strong> {{ music.isFavorite }}</div>
