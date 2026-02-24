@@ -14,7 +14,10 @@
 Obs: 
   - PT-BR: Projeto de cadastro de usuários usando Angular Material, com validações de obrigatóriedade, diretrivas consultando se usuário e email já foram cadastrados, confirmação de senha usando regra de "senha mais forte" e ao clicar no botão "Salvar" é mostrado um modal com a confirmação das informações com ANTES e DEPOIS. 
   - EN: User registration project using Angular Material, with mandatory validations, guidelines checking if the user and email have already been registered, password confirmation using a "strongest password" rule, and when clicking the "Save" button, a modal is displayed with confirmation of the information BEFORE and AFTER.
-<img width="1877" height="839" alt="Captura de tela 2026-02-24 082729" src="https://github.com/user-attachments/assets/fc8b0b06-8b20-4031-a69a-deb84d6526ec" />
+
+https://github.com/user-attachments/assets/d344cad5-2a63-4629-a01a-245802b3a78d
+
+
 
 
 ## :round_pushpin: Infra
