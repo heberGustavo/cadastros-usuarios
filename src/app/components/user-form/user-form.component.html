@@ -1,6 +1,6 @@
 <mat-card>
     <mat-card-content>
-        <form class="user-form" #userForm="ngForm" appPasswordConfirmationValidator>
+        <form class="user-form" #userForm="ngForm" (ngSubmit)="onFormSubmit(userForm)" appPasswordConfirmationValidator>
             <div class="user-form__row">
                 <mat-form-field class="user-form__item user-form__item-100">
                     <mat-label>Nome:</mat-label>
@@ -150,6 +150,9 @@
                         <tr mat-row *matRowDef="let row; columns: displayedColums"></tr>
                     </table>
                 </div>
+            </div>
+            <div class="user-form__row user-form__button-container">
+                <button type="submit" mat-raised-button color="primary">Salvar</button>
             </div>
         </form>
     </mat-card-content>

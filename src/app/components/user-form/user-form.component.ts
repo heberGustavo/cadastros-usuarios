@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { IUser } from 'src/app/interfaces/user/user.interface';
 import { BrasilianStateListResponse } from 'src/app/types/brasilian-state-list-response';
@@ -24,6 +25,12 @@ export class UserFormComponent implements OnInit, OnChanges {
   @Input() genresList: GenresListResponse = [];
   @Input() statesList: BrasilianStateListResponse = [];
   @Input() userSelected: IUser = {} as IUser;
+
+  @Output('onFormSubmit') onFormSubmitEmmit = new EventEmitter<void>();
+
+  constructor(
+    private readonly _el: ElementRef //Para acessar a instancia HTML
+  ) {}
 
   ngOnInit() { //Executa apenas 1x quando o component é carregado
     this.setMinAndMaxDate();
@@ -54,18 +61,40 @@ export class UserFormComponent implements OnInit, OnChanges {
     return genreSelected ? genreSelected.description : '';
   }
 
-  filterGenres(text: string){
-    if(typeof text === 'number') return;
+  filterGenres(text: string) {
+    if (typeof text === 'number') return;
 
     const searchTerm = text.toLocaleLowerCase();
-    
+
     this.filteredGenresList = this.genresList.filter(
       genre => genre.description.toLocaleLowerCase().includes(searchTerm)
     )
   }
 
-  isAnyCheckboxChecked(): boolean{
-    return  this.userSelected.musics.some(music => music.isFavorite === true);
+  isAnyCheckboxChecked(): boolean {
+    return this.userSelected.musics.some(music => music.isFavorite === true);
+  }
+
+  onFormSubmit(form: NgForm) {
+    
+    if(form.invalid) {
+      this.focusOnInvalidControl(form);
+      
+      return;
+    }
+
+    this.onFormSubmitEmmit.emit();
+  }
+
+  private focusOnInvalidControl(form: NgForm) {
+    for(const control of Object.keys(form.controls)){
+      if(form.controls[control].invalid){
+        const invalidControl: HTMLElement = this._el.nativeElement.querySelector(`[name=${control}]`);
+        invalidControl.focus();
+        
+        break;
+      }
+    }
   }
 
   private controlProgressBarPassword() {
