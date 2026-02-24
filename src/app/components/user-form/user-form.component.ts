@@ -64,6 +64,10 @@ export class UserFormComponent implements OnInit, OnChanges {
     )
   }
 
+  isAnyCheckboxChecked(): boolean{
+    return  this.userSelected.musics.some(music => music.isFavorite === true);
+  }
+
   private controlProgressBarPassword() {
     this.passwordStrengthValue = getPasswordStrengthValue(this.userSelected.password);
   }
