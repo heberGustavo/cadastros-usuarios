@@ -10,6 +10,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
     imports: [
@@ -23,6 +24,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
         MatNativeDateModule,
         MatDatepickerModule,
         MatProgressBarModule,
+        MatAutocompleteModule,
     ],
     exports: [
         MatCardModule,
@@ -34,6 +36,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
         MatFormFieldModule,
         MatDatepickerModule,
         MatProgressBarModule,
+        MatAutocompleteModule,
     ],
 })
 export class AngularMaterialModule { }

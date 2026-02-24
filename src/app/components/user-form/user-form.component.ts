@@ -17,6 +17,7 @@ export class UserFormComponent implements OnInit, OnChanges {
   minDate: Date | null = null;
   maxDate: Date | null = null;
   dateValue: Date | null = null;
+  filteredGenresList: GenresListResponse = [];
 
   displayedColums: string[] = ['title', 'band', 'genre', 'favorite'];
 
@@ -34,6 +35,7 @@ export class UserFormComponent implements OnInit, OnChanges {
     if (USER_CHANGED) {
       this.controlProgressBarPassword();
       this.setBirthDateToDatepicker(this.userSelected.birthDate);
+      this.filteredGenresList = this.genresList;
     }
   }
 
@@ -45,6 +47,21 @@ export class UserFormComponent implements OnInit, OnChanges {
     if (!event.value) return;
 
     this.userSelected.birthDate = convertDateObjToPtBrDate(event.value);
+  }
+
+  displayFnGenre(genreId: number): string {
+    const genreSelected = this.genresList.find(x => x.id === genreId);
+    return genreSelected ? genreSelected.description : '';
+  }
+
+  filterGenres(text: string){
+    if(typeof text === 'number') return;
+
+    const searchTerm = text.toLocaleLowerCase();
+    
+    this.filteredGenresList = this.genresList.filter(
+      genre => genre.description.toLocaleLowerCase().includes(searchTerm)
+    )
   }
 
   private controlProgressBarPassword() {
